@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shashank – Professional Electrician | Smart Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1e40af;
+            --primary-yellow: #fbbf24;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --light-bg: #f8fafc;
+            --light-card: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #dbeafe 100%);
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #e2e8f0;
+        }
+
+        .dark-mode .card {
+            background: linear-gradient(145deg, #1e293b 0%, #334155 100%);
+            border-color: #475569;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4 {
+            color: #e2e8f0;
+        }
+
+        .dark-mode p {
+            color: #cbd5e1;
+        }
+
+        .dark-mode input, .dark-mode select {
+            background-color: #334155 !important;
+            color: #e2e8f0 !important;
+            border-color: #475569 !important;
+        }
+
+        .dark-mode input::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        .dark-mode input:focus, .dark-mode select:focus {
+            background-color: #475569 !important;
+            border-color: #60a5fa !important;
+            color: #f1f5f9 !important;
+        }
+
+        .dark-mode select option {
+            background-color: #334155;
+            color: #e2e8f0;
+        }
+
+        .dark-mode .input-group label {
+            color: #cbd5e1;
+        }
+
+        .dark-mode .breakdown-item {
+            background: #334155;
+        }
+
+        .dark-mode .tool-card {
+            background: linear-gradient(145deg, #334155 0%, #475569 100%);
+        }
+
+        .dark-mode .tool-card:hover {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+        }
+
+        .dark-mode table {
+            color: #e2e8f0;
+        }
+
+        .dark-mode th {
+            background: rgba(59, 130, 246, 0.2);
+            color: #dbeafe;
+        }
+
+        .dark-mode td {
+            color: #cbd5e1;
+            border-bottom: 1px solid #475569;
+        }
+
+        .dark-mode tr {
+            border-bottom: 1px solid #475569;
+        }
+
+        /* Fix for information boxes in dark mode */
+        .dark-mode div[style*="background: linear-gradient(135deg, #dbeafe"] {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%) !important;
+            color: #e2e8f0 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #dbeafe"] h4 {
+            color: #fbbf24 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #dbeafe"] table {
+            color: #e2e8f0 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #dbeafe"] th {
+            background: rgba(59, 130, 246, 0.3) !important;
+            color: #dbeafe !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #dbeafe"] td {
+            color: #cbd5e1 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #fef3c7"] {
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%) !important;
+            color: #fef3c7 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #fef3c7"] h4 {
+            color: #fbbf24 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #fef3c7"] li,
+        .dark-mode div[style*="background: linear-gradient(135deg, #fef3c7"] strong {
+            color: #fef3c7 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #fee2e2"] {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%) !important;
+            color: #fecaca !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #fee2e2"] h4 {
+            color: #fbbf24 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #fee2e2"] li,
+        .dark-mode div[style*="background: linear-gradient(135deg, #fee2e2"] strong,
+        .dark-mode div[style*="background: linear-gradient(135deg, #fee2e2"] p {
+            color: #fecaca !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #d1fae5"] {
+            background: linear-gradient(135deg, #065f46 0%, #047857 100%) !important;
+            color: #d1fae5 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #d1fae5"] h4 {
+            color: #fbbf24 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #d1fae5"] strong,
+        .dark-mode div[style*="background: linear-gradient(135deg, #d1fae5"] li {
+            color: #d1fae5 !important;
+        }
+
+        .dark-mode div[style*="background: linear-gradient(135deg, #d1fae5"] div {
+            color: #d1fae5 !important;
+        }
+
+        .dark-mode .btn {
+            color: white;
+        }
+
+        .dark-mode .btn-yellow {
+            color: #1e293b;
+        }
+
+        .dark-mode footer {
+            border-top-color: #475569;
+        }
+
+        .dark-mode nav {
+            background: #1e293b;
+        }
+
+        .gradient-header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(59, 130, 246, 0.2);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        .dark-mode .section-header p {
+            color: #94a3b8;
+        }
+
+        .step-indicator {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: bold;
+            margin-right: 12px;
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 6px solid #3b82f6;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            color: #1e40af;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+        }
+
+        .dark-mode .info-box {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: #dbeafe;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 6px solid #f59e0b;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            color: #92400e;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+            animation: slideUp 0.5s ease;
+        }
+
+        .dark-mode .warning-box {
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+            color: #fef3c7;
+        }
+
+        .error-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 6px solid #dc2626;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            color: #991b1b;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+            animation: slideUp 0.5s ease;
+        }
+
+        .dark-mode .error-box {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+            color: #fecaca;
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1e293b;
+            font-size: 15px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            transform: scale(1.01);
+        }
+
+        .appliance-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: end;
+        }
+
+        .appliance-row input {
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .appliance-row label {
+            font-size: 14px;
+            margin-bottom: 4px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .custom-watt-input {
+            display: none;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.4);
+        }
+
+        .btn-yellow {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+        }
+
+        .btn-yellow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        .breakdown-item {
+            padding: 8px 12px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            font-family: monospace;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+            display: inline-block;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-blue);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3b82f6, #8b5cf6, #ec4899, transparent);
+            margin: 48px 0;
+            border-radius: 2px;
+        }
+
+        .tool-card {
+            text-align: center;
+            padding: 24px;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            border-color: #f59e0b;
+            box-shadow: 0 12px 24px rgba(251, 191, 36, 0.4);
+        }
+
+        .law-card {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1e40af 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .law-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 12px 24px rgba(59, 130, 246, 0.4);
+        }
+
+        .law-card h4 {
+            color: var(--primary-yellow);
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(59, 130, 246, 0.1);
+            font-weight: 700;
+        }
+
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .gap-4 {
+            gap: 16px;
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+
+        .sticky {
+            position: sticky;
+        }
+
+        .top-0 {
+            top: 0;
+        }
+
+        .z-50 {
+            z-index: 50;
+        }
+
+        .z-40 {
+            z-index: 40;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+            .appliance-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body class="smooth-scroll">
+    <!-- Header -->
+    <header class="gradient-header text-white py-6 sticky top-0 z-50">
+        <div class="container">
+            <div class="flex justify-between items-center flex-wrap gap-4">
+                <div>
+                    <h1 style="font-size: 2rem; font-weight: 800;">⚡ Shashank – Professional Electrician</h1>
+                    <p style="color: #bfdbfe; margin-top: 8px;">Accurate Electrical & Inverter Calculations | Indian Standards</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="modeText" style="font-size: 14px;">🌙 Dark Mode</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav style="background: #1e3a8a; padding: 12px 0; position: sticky; top: 88px; z-index: 40;">
+        <div class="container">
+            <div class="flex flex-wrap gap-2" style="justify-content: center;">
+                <a href="#home" class="nav-link">🏠 Home</a>
+                <a href="#load" class="nav-link">⚡ Load</a>
+                <a href="#current" class="nav-link">🔌 Current</a>
+                <a href="#wire" class="nav-link">📏 Wire</a>
+                <a href="#mcb" class="nav-link">🔒 MCB</a>
+                <a href="#rccb" class="nav-link">🛡️ RCCB</a>
+                <a href="#inverter" class="nav-link">🔋 Inverter</a>
+                <a href="#backup" class="nav-link">⏱️ Backup</a>
+                <a href="#wirelength" class="nav-link">📐 Wire Length</a>
+                <a href="#conduit" class="nav-link">🏗️ Conduit</a>
+                <a href="#laws" class="nav-link">📚 Laws</a>
+                <a href="#tools" class="nav-link">🔧 Tools</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container" style="padding: 40px 20px;">
+        <!-- Home Section -->
+        <section id="home" style="margin-bottom: 48px;">
+            <div class="card text-center">
+                <h2 style="font-size: 2.5rem; font-weight: 800; color: #1e40af; margin-bottom: 16px;">🔌 Smart Electrician Calculator</h2>
+                <p style="font-size: 1.25rem; margin-bottom: 24px; color: #475569;">Professional-grade electrical calculations for house wiring, load planning, and inverter sizing</p>
+                <div class="flex flex-wrap gap-4" style="justify-content: center; margin-top: 24px;">
+                    <a href="#load" class="btn btn-primary" style="width: auto; padding: 16px 32px;">Calculate Load</a>
+                    <a href="#inverter" class="btn btn-yellow" style="width: auto; padding: 16px 32px;">Inverter Sizing</a>
+                    <a href="#wire" class="btn btn-primary" style="width: auto; padding: 16px 32px;">Wire Selection</a>
+                    <a href="#conduit" class="btn btn-yellow" style="width: auto; padding: 16px 32px;">Conduit Materials</a>
+                </div>
+                <div class="warning-box" style="margin-top: 24px;">
+                    ⚠️ <strong>Disclaimer:</strong> These calculations are for planning purposes. Final installation must be done by a certified electrician. Always follow local electrical codes and safety standards.
+                </div>
+            </div>
+        </section>
+
+        <!-- Load Calculator -->
+        <div class="section-divider"></div>
+        <section id="load" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>⚡ Load Calculator (House Wiring)</h2>
+                    <p>Calculate total electrical load for your home</p>
+                </div>
+                
+                <div class="info-box">
+                    <strong>📋 Step-by-Step Guide:</strong><br>
+                    <span class="step-indicator">1</span> Enter quantity of each appliance<br>
+                    <span class="step-indicator">2</span> (Optional) Enable Advanced Mode for custom wattage<br>
+                    <span class="step-indicator">3</span> Click "Calculate Total Load" button<br>
+                    <span class="step-indicator">4</span> View detailed breakdown and recommended load
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: inline-flex; align-items: center; cursor: pointer;">
+                        <input type="checkbox" id="advancedMode" style="margin-right: 8px; width: auto;">
+                        <span style="font-weight: 600;">🔘 Advanced Mode (Custom Wattage)</span>
+                    </label>
+                </div>
+
+                <div id="loadInputs">
+                    <!-- LED Bulbs -->
+                    <div class="appliance-row">
+                        <div>
+                            <label>💡 LED Bulbs</label>
+                            <input type="number" id="bulbs" min="0" value="0" placeholder="Quantity">
+                        </div>
+                        <div class="custom-watt-input">
+                            <label>Watt (optional)</label>
+                            <input type="number" id="bulbsWatt" min="1" max="100" placeholder="Default: 10W">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <span style="font-size: 13px; color: #64748b;">Default: 10W</span>
+                        </div>
+                    </div>
+
+                    <!-- Tube Lights -->
+                    <div class="appliance-row">
+                        <div>
+                            <label>💡 Tube Lights</label>
+                            <input type="number" id="tubeLights" min="0" value="0" placeholder="Quantity">
+                        </div>
+                        <div class="custom-watt-input">
+                            <label>Watt (optional)</label>
+                            <input type="number" id="tubeLightsWatt" min="1" max="150" placeholder="Default: 40W">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <span style="font-size: 13px; color: #64748b;">Default: 40W</span>
+                        </div>
+                    </div>
+
+                    <!-- Fans -->
+                    <div class="appliance-row">
+                        <div>
+                            <label>🌀 Ceiling Fans</label>
+                            <input type="number" id="fans" min="0" value="0" placeholder="Quantity">
+                        </div>
+                        <div class="custom-watt-input">
+                            <label>Watt (optional)</label>
+                            <input type="number" id="fansWatt" min="30" max="120" placeholder="Default: 80W">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <span style="font-size: 13px; color: #64748b;">Default: 80W</span>
+                        </div>
+                    </div>
+
+                    <!-- 5A Sockets -->
+                    <div class="appliance-row">
+                        <div>
+                            <label>🔌 5A Sockets</label>
+                            <input type="number" id="socket5a" min="0" value="0" placeholder="Quantity">
+                        </div>
+                        <div class="custom-watt-input">
+                            <label>Watt (optional)</label>
+                            <input type="number" id="socket5aWatt" min="1" max="1150" placeholder="Default: 500W">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <span style="font-size: 13px; color: #64748b;">Default: 500W</span>
+                        </div>
+                    </div>
+
+                    <!-- 16A Sockets -->
+                    <div class="appliance-row">
+                        <div>
+                            <label>🔌 16A Sockets</label>
+                            <input type="number" id="socket16a" min="0" value="0" placeholder="Quantity">
+                        </div>
+                        <div class="custom-watt-input">
+                            <label>Watt (optional)</label>
+                            <input type="number" id="socket16aWatt" min="1" max="3680" placeholder="Default: 2000W">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <span style="font-size: 13px; color: #64748b;">Default: 2000W</span>
+                        </div>
+                    </div>
+
+                    <!-- AC -->
+                    <div class="appliance-row">
+                        <div>
+                            <label>❄️ Air Conditioner</label>
+                            <input type="number" id="ac" min="0" value="0" placeholder="Quantity">
+                        </div>
+                        <div class="custom-watt-input">
+                            <label>Watt (optional)</label>
+                            <input type="number" id="acWatt" min="500" max="3000" placeholder="Default: 1500W">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <span style="font-size: 13px; color: #64748b;">Default: 1500W</span>
+                        </div>
+                    </div>
+
+                    <!-- Geyser -->
+                    <div class="appliance-row">
+                        <div>
+                            <label>🔥 Water Geyser</label>
+                            <input type="number" id="geyser" min="0" value="0" placeholder="Quantity">
+                        </div>
+                        <div class="custom-watt-input">
+                            <label>Watt (optional)</label>
+                            <input type="number" id="geyserWatt" min="500" max="3000" placeholder="Default: 2000W">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <span style="font-size: 13px; color: #64748b;">Default: 2000W</span>
+                        </div>
+                    </div>
+
+                    <!-- TV -->
+                    <div class="appliance-row">
+                        <div>
+                            <label>📺 Television</label>
+                            <input type="number" id="tv" min="0" value="0" placeholder="Quantity">
+                        </div>
+                        <div class="custom-watt-input">
+                            <label>Watt (optional)</label>
+                            <input type="number" id="tvWatt" min="30" max="400" placeholder="Default: 150W">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <span style="font-size: 13px; color: #64748b;">Default: 150W</span>
+                        </div>
+                    </div>
+
+                    <!-- Cooler -->
+                    <div class="appliance-row">
+                        <div>
+                            <label>💨 Air Cooler</label>
+                            <input type="number" id="cooler" min="0" value="0" placeholder="Quantity">
+                        </div>
+                        <div class="custom-watt-input">
+                            <label>Watt (optional)</label>
+                            <input type="number" id="coolerWatt" min="100" max="400" placeholder="Default: 200W">
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <span style="font-size: 13px; color: #64748b;">Default: 200W</span>
+                        </div>
+                    </div>
+
+                    <!-- Custom Load -->
+                    <div class="input-group">
+                        <label>➕ Custom Load (Watt)</label>
+                        <input type="number" id="customLoad" min="0" value="0" placeholder="Enter additional load in watts">
+                    </div>
+                </div>
+
+                <button onclick="calculateLoad()" class="btn btn-primary">🧮 Calculate Total Load</button>
+                <button onclick="resetLoadCalculator()" class="btn btn-yellow">🔄 Reset to Default</button>
+
+                <div id="loadResult" style="display: none;">
+                    <div id="loadBreakdown" style="margin-top: 20px;"></div>
+                    <div class="result-box">
+                        <div id="loadOutput"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Current Calculator -->
+        <div class="section-divider"></div>
+        <section id="current" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>🔌 Current Calculator</h2>
+                    <p>Calculate current from power and voltage</p>
+                </div>
+                
+                <div class="info-box">
+                    <strong>📋 Step-by-Step Guide:</strong><br>
+                    <span class="step-indicator">1</span> Enter total load in Watts<br>
+                    <span class="step-indicator">2</span> Verify voltage (230V default for India)<br>
+                    <span class="step-indicator">3</span> Click "Calculate Current"<br>
+                    <span class="step-indicator">4</span> Use this current for wire and MCB selection
+                </div>
+                
+                <div class="input-group">
+                    <label>Total Load (Watt)</label>
+                    <input type="number" id="currentLoad" min="0" placeholder="Enter total load in watts">
+                </div>
+
+                <div class="input-group">
+                    <label>Voltage (V)</label>
+                    <input type="number" id="voltage" value="230" placeholder="Default: 230V for India">
+                </div>
+
+                <button onclick="calculateCurrent()" class="btn btn-primary">⚡ Calculate Current</button>
+
+                <div id="currentResult" style="display: none;">
+                    <div class="result-box">
+                        <div id="currentOutput"></div>
+                    </div>
+                    <div class="warning-box">
+                        💡 <strong>Formula:</strong> Current (A) = Power (W) ÷ Voltage (V)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wire Size Calculator -->
+        <div class="section-divider"></div>
+        <section id="wire" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>📏 Wire Size Calculator</h2>
+                    <p>Find the right wire size for your load</p>
+                </div>
+                
+                <div class="info-box">
+                    <strong>📋 Step-by-Step Guide:</strong><br>
+                    <span class="step-indicator">1</span> Calculate current using Current Calculator above<br>
+                    <span class="step-indicator">2</span> Enter the current value in Amperes<br>
+                    <span class="step-indicator">3</span> Click "Find Wire Size"<br>
+                    <span class="step-indicator">4</span> Note the recommended wire size (sq mm)
+                </div>
+                
+                <div class="input-group">
+                    <label>Load Current (Ampere)</label>
+                    <input type="number" id="wireCurrent" min="0" step="0.1" placeholder="Enter current in amperes">
+                </div>
+
+                <button onclick="calculateWireSize()" class="btn btn-primary">🔍 Find Wire Size</button>
+
+                <div id="wireResult" style="display: none;">
+                    <div class="result-box">
+                        <div id="wireOutput"></div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px;">
+                    <h4 style="font-weight: 700; margin-bottom: 16px; color: #1e40af;">📊 Indian Standard Wire Chart (Copper)</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Wire Size</th>
+                                <th>Max Current</th>
+                                <th>Typical Use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1.0 sq mm</td>
+                                <td>8A</td>
+                                <td>Small lights</td>
+                            </tr>
+                            <tr>
+                                <td>1.5 sq mm</td>
+                                <td>12-14A</td>
+                                <td>Lights & fans</td>
+                            </tr>
+                            <tr>
+                                <td>2.5 sq mm</td>
+                                <td>18-20A</td>
+                                <td>5A & 16A sockets</td>
+                            </tr>
+                            <tr>
+                                <td>4.0 sq mm</td>
+                                <td>25-28A</td>
+                                <td>AC, Geyser</td>
+                            </tr>
+                            <tr>
+                                <td>6.0 sq mm</td>
+                                <td>32-36A</td>
+                                <td>Main supply</td>
+                            </tr>
+                            <tr>
+                                <td>10 sq mm</td>
+                                <td>45-50A</td>
+                                <td>Heavy load main</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- MCB Calculator -->
+        <div class="section-divider"></div>
+        <section id="mcb" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>🔒 MCB Calculator</h2>
+                    <p>Select the right MCB for circuit protection</p>
+                </div>
+                
+                <div class="info-box">
+                    <strong>📋 Step-by-Step Guide:</strong><br>
+                    <span class="step-indicator">1</span> Select your load type from dropdown<br>
+                    <span class="step-indicator">2</span> Current will auto-fill (or enter manually)<br>
+                    <span class="step-indicator">3</span> Click "Recommend MCB"<br>
+                    <span class="step-indicator">4</span> Note the MCB rating, pole type, and breaker type
+                </div>
+                
+                <div class="input-group">
+                    <label>Load Type</label>
+                    <select id="mcbLoadType" onchange="updateMCBCurrent()">
+                        <option value="">Select Load Type</option>
+                        <option value="light">Lighting Circuit</option>
+                        <option value="5a">5A Socket Circuit</option>
+                        <option value="16a">16A Socket Circuit</option>
+                        <option value="ac">Air Conditioner</option>
+                        <option value="geyser">Water Geyser</option>
+                        <option value="main">Main Distribution</option>
+                        <option value="custom">Custom Current</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Load Current (Ampere)</label>
+                    <input type="number" id="mcbCurrent" min="0" step="0.1" placeholder="Enter or auto-filled">
+                </div>
+
+                <button onclick="calculateMCB()" class="btn btn-primary">🔍 Recommend MCB</button>
+
+                <div id="mcbResult" style="display: none;">
+                    <div class="result-box">
+                        <div id="mcbOutput"></div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 12px;">
+                    <h4 style="font-weight: 700; margin-bottom: 12px;">⚡ MCB Selection Guide</h4>
+                    <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                        <li>✅ Lighting Circuit → <strong>6A MCB</strong></li>
+                        <li>✅ 5A Socket → <strong>10A MCB</strong></li>
+                        <li>✅ 16A Socket → <strong>16A or 20A MCB</strong></li>
+                        <li>✅ AC/Geyser → <strong>20A or 32A MCB</strong></li>
+                        <li>✅ Main MCB → <strong>32A, 40A, or 63A MCB</strong></li>
+                        <li>✅ SP (Single Pole) → For single phase</li>
+                        <li>✅ DP (Double Pole) → For isolation needed</li>
+                        <li>✅ Type B → Domestic use (3-5x rated current)</li>
+                        <li>✅ Type C → Motor loads (5-10x rated current)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- RCCB Calculator -->
+        <div class="section-divider"></div>
+        <section id="rccb" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>🛡️ RCCB Calculator</h2>
+                    <p>Residual Current Circuit Breaker - Safety Protection</p>
+                </div>
+                
+                <div class="info-box">
+                    <strong>📋 Step-by-Step Guide:</strong><br>
+                    <span class="step-indicator">1</span> Enter your Main MCB rating<br>
+                    <span class="step-indicator">2</span> Click "Recommend RCCB"<br>
+                    <span class="step-indicator">3</span> Note the RCCB rating and specifications<br>
+                    <span class="step-indicator">4</span> Remember: RCCB is MANDATORY for safety
+                </div>
+                
+                <div class="input-group">
+                    <label>Main MCB Rating (Ampere)</label>
+                    <input type="number" id="rccbMainMCB" min="0" placeholder="Enter main MCB rating">
+                </div>
+
+                <button onclick="calculateRCCB()" class="btn btn-primary">🔍 Recommend RCCB</button>
+
+                <div id="rccbResult" style="display: none;">
+                    <div class="result-box">
+                        <div id="rccbOutput"></div>
+                    </div>
+                    <div class="error-box">
+                        ⚠️ <strong>MANDATORY Safety Requirement:</strong> RCCB is compulsory for domestic installations to prevent electric shock. It detects leakage current and trips within milliseconds to save lives.
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-radius: 12px; color: #991b1b;">
+                    <h4 style="font-weight: 700; margin-bottom: 12px;">🛡️ RCCB Standards (India)</h4>
+                    <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                        <li>✅ <strong>Leakage Current:</strong> 30mA (Standard for domestic)</li>
+                        <li>✅ <strong>Current Rating:</strong> 40A or 63A</li>
+                        <li>✅ <strong>Poles:</strong> 2-Pole (DP) or 4-Pole (TP+N)</li>
+                        <li>✅ <strong>Trip Time:</strong> ≤ 30 milliseconds</li>
+                        <li>✅ RCCB rating must be ≥ Main MCB rating</li>
+                        <li>✅ Monthly testing required (Test button)</li>
+                        <li>✅ Protects against: Earth leakage & Electric shock</li>
+                        <li>⚠️ <strong>Note:</strong> RCCB does NOT protect against overload or short circuit (use with MCB)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inverter Calculator -->
+        <div class="section-divider"></div>
+        <section id="inverter" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>🔋 Inverter & Battery Calculator</h2>
+                    <p>Calculate inverter size and battery capacity for backup power</p>
+                </div>
+                
+                <div class="info-box">
+                    <strong>📋 Step-by-Step Guide:</strong><br>
+                    <span class="step-indicator">1</span> Select appliances you want to run on inverter<br>
+                    <span class="step-indicator">2</span> Enter required backup time (hours)<br>
+                    <span class="step-indicator">3</span> Choose battery voltage (12V or 24V)<br>
+                    <span class="step-indicator">4</span> Click "Calculate Inverter & Battery"<br>
+                    <span class="step-indicator">5</span> Note recommended VA and Ah (rounded to standard values)
+                </div>
+                
+                <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; color: #1e40af;">Select Appliances for Backup</h3>
+
+                <div class="input-group">
+                    <label>💡 LED Bulbs (10W each)</label>
+                    <input type="number" id="invBulbs" min="0" value="0">
+                </div>
+
+                <div class="input-group">
+                    <label>💡 Tube Lights (40W each)</label>
+                    <input type="number" id="invTubeLights" min="0" value="0">
+                </div>
+
+                <div class="input-group">
+                    <label>🌀 Ceiling Fans (80W each)</label>
+                    <input type="number" id="invFans" min="0" value="0">
+                </div>
+
+                <div class="input-group">
+                    <label>📺 Television (150W each)</label>
+                    <input type="number" id="invTV" min="0" value="0">
+                </div>
+
+                <div class="input-group">
+                    <label>💻 Laptop (65W each)</label>
+                    <input type="number" id="invLaptop" min="0" value="0">
+                </div>
+
+                <div class="input-group">
+                    <label>💨 Air Cooler (200W each)</label>
+                    <input type="number" id="invCooler" min="0" value="0">
+                </div>
+
+                <div class="input-group">
+                    <label>🔌 Other Devices (Watt)</label>
+                    <input type="number" id="invCustom" min="0" value="0" placeholder="Total wattage of other devices">
+                </div>
+
+                <div class="input-group">
+                    <label>⏱️ Required Backup Time (Hours)</label>
+                    <input type="number" id="backupTime" min="1" value="3" step="0.5">
+                </div>
+
+                <div class="input-group">
+                    <label>🔋 Battery Voltage</label>
+                    <select id="batteryVoltage">
+                        <option value="12">12V (Single Battery)</option>
+                        <option value="24" selected>24V (Two Batteries)</option>
+                    </select>
+                </div>
+
+                <button onclick="calculateInverter()" class="btn btn-primary">🔍 Calculate Inverter & Battery</button>
+
+                <div id="inverterResult" style="display: none;">
+                    <div id="inverterBreakdown" style="margin-top: 20px;"></div>
+                    <div class="result-box">
+                        <div id="inverterOutput"></div>
+                    </div>
+                </div>
+
+                <div class="error-box">
+                    ❌ <strong>Not Supported on Inverter:</strong> Air Conditioner, Water Geyser, Electric Iron, Induction Cooker (High power consumption - needs generator or mains supply)
+                </div>
+
+                <div style="margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px;">
+                    <h4 style="font-weight: 700; margin-bottom: 12px; color: #065f46;">🔋 Standard Inverter & Battery Sizes</h4>
+                    <div class="grid grid-cols-3">
+                        <div>
+                            <strong>Inverter VA:</strong>
+                            <ul style="margin-top: 8px; line-height: 1.6;">
+                                <li>• 600 VA - Basic lighting</li>
+                                <li>• 800 VA - 2-3 fans + lights</li>
+                                <li>• 1000 VA - 3-4 fans + lights + TV</li>
+                                <li>• 1500 VA - Full home backup</li>
+                                <li>• 2000 VA - Large home</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <strong>Battery Ah (12V):</strong>
+                            <ul style="margin-top: 8px; line-height: 1.6;">
+                                <li>• 100 Ah - Basic backup</li>
+                                <li>• 120 Ah - Standard backup</li>
+                                <li>• 150 Ah - Extended backup</li>
+                                <li>• 180 Ah - Long backup</li>
+                                <li>• 200 Ah - Very long backup</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Backup Time Calculator -->
+        <div class="section-divider"></div>
+        <section id="backup" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>⏱️ Backup Time Calculator</h2>
+                    <p>Calculate how long your battery will last</p>
+                </div>
+                
+                <div class="info-box">
+                    <strong>📋 Step-by-Step Guide:</strong><br>
+                    <span class="step-indicator">1</span> Enter your battery capacity (Ah)<br>
+                    <span class="step-indicator">2</span> Select battery voltage<br>
+                    <span class="step-indicator">3</span> Enter total load you'll run<br>
+                    <span class="step-indicator">4</span> Click "Calculate Backup Time"
+                </div>
+                
+                <div class="input-group">
+                    <label>Battery Capacity (Ah)</label>
+                    <input type="number" id="backupBatteryAh" min="0" placeholder="e.g., 150">
+                </div>
+
+                <div class="input-group">
+                    <label>Battery Voltage (V)</label>
+                    <select id="backupBatteryVoltage">
+                        <option value="12">12V</option>
+                        <option value="24" selected>24V</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Total Load (Watt)</label>
+                    <input type="number" id="backupLoad" min="0" placeholder="Total load during backup">
+                </div>
+
+                <button onclick="calculateBackupTime()" class="btn btn-primary">⏰ Calculate Backup Time</button>
+
+                <div id="backupResult" style="display: none;">
+                    <div class="result-box">
+                        <div id="backupOutput"></div>
+                    </div>
+                    <div class="warning-box">
+                        💡 <strong>Formula:</strong> Backup Time = (Battery Ah × Voltage × Efficiency) ÷ Load<br>
+                        Efficiency = 0.8 (80%)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wire Length Estimator -->
+        <div class="section-divider"></div>
+        <section id="wirelength" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>📐 Wire Length Estimator</h2>
+                    <p>Estimate total wire requirement for your project</p>
+                </div>
+                
+                <div class="info-box">
+                    <strong>📋 Step-by-Step Guide:</strong><br>
+                    <span class="step-indicator">1</span> Choose estimation method<br>
+                    <span class="step-indicator">2</span> Enter number of points/rooms or manual length<br>
+                    <span class="step-indicator">3</span> Adjust safety margin if needed<br>
+                    <span class="step-indicator">4</span> Click "Estimate Wire Length"
+                </div>
+                
+                <div class="input-group">
+                    <label>Estimation Method</label>
+                    <select id="wireLengthMethod" onchange="toggleWireLengthInputs()">
+                        <option value="points">By Electrical Points</option>
+                        <option value="rooms">By Rooms</option>
+                        <option value="manual">Manual Input</option>
+                    </select>
+                </div>
+
+                <div id="pointsInput">
+                    <div class="input-group">
+                        <label>Number of Electrical Points (Lights, Fans, Sockets)</label>
+                        <input type="number" id="electricalPoints" min="0" value="0">
+                    </div>
+                    <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Estimate: Each point requires ~10-12 meters of wire</p>
+                </div>
+
+                <div id="roomsInput" style="display: none;">
+                    <div class="input-group">
+                        <label>Number of Rooms</label>
+                        <input type="number" id="rooms" min="0" value="0">
+                    </div>
+                    <p style="font-size: 14px; color: #64748b; margin-bottom: 16px;">Estimate: Each room requires ~60-80 meters of wire</p>
+                </div>
+
+                <div id="manualInput" style="display: none;">
+                    <div class="input-group">
+                        <label>Total Wire Length Required (meters)</label>
+                        <input type="number" id="manualWireLength" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Safety Margin (%)</label>
+                    <input type="number" id="wireLengthMargin" value="15" min="10" max="50">
+                </div>
+
+                <button onclick="calculateWireLength()" class="btn btn-primary">📏 Estimate Wire Length</button>
+
+                <div id="wireLengthResult" style="display: none;">
+                    <div class="result-box">
+                        <div id="wireLengthOutput"></div>
+                    </div>
+                    <div class="warning-box">
+                        💡 <strong>Pro Tip:</strong> Always buy 15-20% extra wire for corners, loops, and unforeseen requirements. Measure room dimensions carefully for accurate estimation.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conduit & Casing-Capping Calculator -->
+        <div class="section-divider"></div>
+        <section id="conduit" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>🏗️ Conduit & Casing-Capping Calculator</h2>
+                    <p>Calculate pipe and material requirements for house wiring</p>
+                </div>
+                
+                <div class="info-box">
+                    <strong>📋 Step-by-Step Guide:</strong><br>
+                    <span class="step-indicator">1</span> Enter number of rooms or electrical points<br>
+                    <span class="step-indicator">2</span> Select wiring type (PVC Conduit or Casing-Capping)<br>
+                    <span class="step-indicator">3</span> Choose pipe size (auto-recommended or manual)<br>
+                    <span class="step-indicator">4</span> Adjust wastage percentage if needed<br>
+                    <span class="step-indicator">5</span> Click "Calculate Materials"
+                </div>
+                
+                <div class="input-group">
+                    <label>Number of Rooms</label>
+                    <input type="number" id="conduitRooms" min="0" value="0" placeholder="Number of rooms">
+                </div>
+
+                <div class="input-group">
+                    <label>Number of Electrical Points</label>
+                    <input type="number" id="conduitPoints" min="0" value="0" placeholder="Total lights, fans, sockets">
+                </div>
+
+                <div class="input-group">
+                    <label>Wiring Type</label>
+                    <select id="wiringType">
+                        <option value="conduit">PVC Conduit (Concealed)</option>
+                        <option value="casing">Casing-Capping (Open/Surface)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Circuit Type (for Pipe Size Recommendation)</label>
+                    <select id="circuitType" onchange="updatePipeSize()">
+                        <option value="auto">Auto Select (Mixed)</option>
+                        <option value="light">Light / Fan Circuit (20mm)</option>
+                        <option value="socket">Socket / Power Circuit (25mm)</option>
+                        <option value="main">Main Line (32mm)</option>
+                        <option value="custom">Custom Size</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Pipe Size (mm)</label>
+                    <input type="number" id="pipeSize" value="20" min="16" max="50" placeholder="Pipe diameter">
+                </div>
+
+                <div class="input-group">
+                    <label>Extra Wastage (%)</label>
+                    <input type="number" id="conduitWastage" value="10" min="5" max="30">
+                </div>
+
+                <button onclick="calculateConduit()" class="btn btn-primary">🧮 Calculate Materials</button>
+
+                <div id="conduitResult" style="display: none;">
+                    <div class="result-box">
+                        <div id="conduitOutput"></div>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px;">
+                        <h4 style="font-weight: 700; margin-bottom: 16px; color: #065f46;">📋 Material Estimation List</h4>
+                        <div id="materialList"></div>
+                    </div>
+
+                    <div class="warning-box">
+                        ⚠️ <strong>Electrician's Pro Tip:</strong> Never overload conduit with too many wires. Maximum 40% fill capacity recommended. For 20mm pipe, max 4-5 wires (1.5 sq mm). Always use quality ISI marked conduits.
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px; padding: 20px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px;">
+                    <h4 style="font-weight: 700; margin-bottom: 16px; color: #1e40af;">📐 Standard Pipe Sizes (India)</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pipe Size</th>
+                                <th>Typical Use</th>
+                                <th>Max Wires</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>16 mm</td>
+                                <td>Single light point</td>
+                                <td>2-3 wires (1.5 sq mm)</td>
+                            </tr>
+                            <tr>
+                                <td>20 mm</td>
+                                <td>Light & fan circuits</td>
+                                <td>4-5 wires (1.5 sq mm)</td>
+                            </tr>
+                            <tr>
+                                <td>25 mm</td>
+                                <td>Socket & power circuits</td>
+                                <td>6-7 wires (2.5 sq mm)</td>
+                            </tr>
+                            <tr>
+                                <td>32 mm</td>
+                                <td>Main distribution line</td>
+                                <td>8-10 wires (4.0 sq mm)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Electrical Laws -->
+        <div class="section-divider"></div>
+        <section id="laws" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>📚 Electrical Laws & Rules</h2>
+                    <p>Essential electrical principles every electrician must know</p>
+                </div>
+                
+                <div class="law-card">
+                    <h4>⚡ Ohm's Law (ओम का नियम)</h4>
+                    <p><strong>V = I × R</strong></p>
+                    <p>Voltage (V) = Current (I) × Resistance (R)</p>
+                    <p style="margin-top: 8px; font-size: 14px;">Current flows when voltage is applied across resistance. Higher resistance = Lower current.</p>
+                </div>
+
+                <div class="law-card">
+                    <h4>🔥 Joule's Law (जूल का नियम)</h4>
+                    <p><strong>H = I² × R × t</strong></p>
+                    <p>Heat (H) = Current² × Resistance × Time</p>
+                    <p style="margin-top: 8px; font-size: 14px;">Electrical energy converts to heat. Higher current = More heat (wire heating/fire risk).</p>
+                </div>
+
+                <div class="law-card">
+                    <h4>🔌 Power Formula</h4>
+                    <p><strong>P = V × I = I² × R = V² ÷ R</strong></p>
+                    <p>Power (W) = Voltage × Current</p>
+                    <p style="margin-top: 8px; font-size: 14px;">Total power consumed by appliances. Used for load calculation.</p>
+                </div>
+
+                <div class="law-card">
+                    <h4>🔄 Kirchhoff's Current Law (KCL)</h4>
+                    <p><strong>ΣI (incoming) = ΣI (outgoing)</strong></p>
+                    <p>Sum of currents entering a junction = Sum of currents leaving</p>
+                    <p style="margin-top: 8px; font-size: 14px;">Current is conserved at junctions in a circuit.</p>
+                </div>
+
+                <div class="law-card">
+                    <h4>🔄 Kirchhoff's Voltage Law (KVL)</h4>
+                    <p><strong>ΣV = 0 (in a closed loop)</strong></p>
+                    <p>Sum of all voltages in a closed circuit loop is zero</p>
+                    <p style="margin-top: 8px; font-size: 14px;">Total voltage rise = Total voltage drop in any loop.</p>
+                </div>
+
+                <div class="law-card">
+                    <h4>🧲 Fleming's Right Hand Rule (Generator)</h4>
+                    <p><strong>Thumb = Motion, First Finger = Field, Middle Finger = Current</strong></p>
+                    <p style="margin-top: 8px; font-size: 14px;">Used to find direction of induced current in generators.</p>
+                </div>
+
+                <div class="law-card">
+                    <h4>🧲 Fleming's Left Hand Rule (Motor)</h4>
+                    <p><strong>Thumb = Force, First Finger = Field, Middle Finger = Current</strong></p>
+                    <p style="margin-top: 8px; font-size: 14px;">Used to find direction of force in motors.</p>
+                </div>
+
+                <div class="law-card">
+                    <h4>🔗 Series Circuit</h4>
+                    <p><strong>I = Same, V = V₁ + V₂ + V₃, R = R₁ + R₂ + R₃</strong></p>
+                    <p style="margin-top: 8px; font-size: 14px;">Current same everywhere, voltage divides, resistances add up.</p>
+                </div>
+
+                <div class="law-card">
+                    <h4>🔗 Parallel Circuit</h4>
+                    <p><strong>V = Same, I = I₁ + I₂ + I₃, 1/R = 1/R₁ + 1/R₂ + 1/R₃</strong></p>
+                    <p style="margin-top: 8px; font-size: 14px;">Voltage same everywhere, current divides, total resistance decreases.</p>
+                </div>
+
+                <div class="law-card">
+                    <h4>🌍 Earthing Rules (Grounding)</h4>
+                    <p><strong>All metal parts must be earthed</strong></p>
+                    <ul style="margin-top: 8px; font-size: 14px; line-height: 1.6;">
+                        <li>• Earth wire: Green/Yellow (ISI standard)</li>
+                        <li>• Earth resistance: &lt; 5Ω (Residential)</li>
+                        <li>• Protects from electric shock during leakage</li>
+                        <li>• Mandatory for geysers, ACs, washing machines</li>
+                    </ul>
+                </div>
+
+                <div class="law-card">
+                    <h4>🛡️ RCCB Mandatory Rule</h4>
+                    <p><strong>30mA RCCB compulsory for all domestic installations</strong></p>
+                    <ul style="margin-top: 8px; font-size: 14px; line-height: 1.6;">
+                        <li>• Detects earth leakage current</li>
+                        <li>• Trips in &lt; 30ms to save life</li>
+                        <li>• Monthly test button check mandatory</li>
+                        <li>• Does NOT replace MCB (both needed)</li>
+                    </ul>
+                </div>
+
+                <div class="error-box">
+                    ⚠️ <strong>Safety First:</strong> Never work on live circuits. Always switch off main supply and test with a tester before touching wires. Wear insulated gloves and shoes. If unsure, call a licensed electrician.
+                </div>
+            </div>
+        </section>
+
+        <!-- Electrician Tools -->
+        <div class="section-divider"></div>
+        <section id="tools" style="margin-bottom: 48px;">
+            <div class="card">
+                <div class="section-header">
+                    <h2>🔧 Essential Electrician Tools</h2>
+                    <p>Professional tools for electrical work</p>
+                </div>
+                
+                <div class="grid grid-cols-3">
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">🔌</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Multimeter</h4>
+                        <p style="font-size: 14px;">Measures voltage, current, resistance, continuity</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">🧲</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Clamp Meter</h4>
+                        <p style="font-size: 14px;">Measures current without breaking circuit</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">💡</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Tester (Phase)</h4>
+                        <p style="font-size: 14px;">Detects live wire, essential safety tool</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">⚡</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Megger</h4>
+                        <p style="font-size: 14px;">Tests insulation resistance (500V/1000V)</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">✂️</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Wire Stripper</h4>
+                        <p style="font-size: 14px;">Removes wire insulation cleanly</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">🔧</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Screwdriver Set</h4>
+                        <p style="font-size: 14px;">Flat & Phillips, insulated handles</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">🔨</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Crimping Tool</h4>
+                        <p style="font-size: 14px;">For wire terminals & lugs</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">📏</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Measuring Tape</h4>
+                        <p style="font-size: 14px;">For accurate wire length measurement</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">🎯</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Insulation Tape</h4>
+                        <p style="font-size: 14px;">PVC tape for joint insulation</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">🛡️</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">RCCB Tester</h4>
+                        <p style="font-size: 14px;">Tests RCCB trip functionality</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">🔍</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Earth Tester</h4>
+                        <p style="font-size: 14px;">Measures earth resistance (&lt;5Ω)</p>
+                    </div>
+
+                    <div class="tool-card">
+                        <div style="font-size: 3rem; margin-bottom: 8px;">⚡</div>
+                        <h4 style="font-weight: 700; margin-bottom: 8px;">Voltage Detector</h4>
+                        <p style="font-size: 14px;">Non-contact voltage detection</p>
+                    </div>
+                </div>
+
+                <div class="warning-box" style="margin-top: 24px;">
+                    🛠️ <strong>Professional Tip:</strong> Always use ISI certified tools. Check tools before each use. Never work with damaged tools. Keep tools organized and clean for longevity.
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center" style="padding: 32px 0; border-top: 2px solid #cbd5e1; margin-top: 48px;">
+            <h3 style="font-size: 1.5rem; font-weight: 800; color: #1e40af; margin-bottom: 8px;">⚡ Created by Shashank – Professional Electrician</h3>
+            <p style="color: #64748b; margin-bottom: 16px;">Accurate Electrical Calculations | Indian Standards | Offline Usable</p>
+            <p style="font-size: 14px; color: #64748b;">
+                📱 For professional electrical installations, consultations, or emergency services, contact your local certified electrician.
+            </p>
+            <div style="max-width: 800px; margin: 24px auto; padding: 16px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px;">
+                <p style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">⚠️ Disclaimer:</p>
+                <p style="font-size: 12px;">This calculator provides estimates based on standard Indian electrical practices. Actual requirements may vary based on specific conditions, local codes, and installation environment. Always consult a licensed electrician for final design and installation. The creator is not responsible for any damages or injuries resulting from use of these calculations.</p>
+            </div>
+            <p style="margin-top: 16px; font-size: 13px; font-family: monospace;">v1.0 | © 2024 | Browser-based | No data collected</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const modeText = document.getElementById('modeText');
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.checked = true;
+            modeText.textContent = '☀️ Light Mode';
+        }
+
+        darkModeToggle.addEventListener('change', function() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = this.checked;
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            modeText.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+        });
+
+        // Advanced Mode Toggle
+        const advancedModeToggle = document.getElementById('advancedMode');
+        const customWattInputs = document.querySelectorAll('.custom-watt-input');
+
+        advancedModeToggle.addEventListener('change', function() {
+            customWattInputs.forEach(input => {
+                input.style.display = this.checked ? 'block' : 'none';
+            });
+        });
+
+        // Default wattage values
+        const defaultWatts = {
+            bulbs: 10,
+            tubeLights: 40,
+            fans: 80,
+            socket5a: 500,
+            socket16a: 2000,
+            ac: 1500,
+            geyser: 2000,
+            tv: 150,
+            cooler: 200
+        };
+
+        // Get effective watt value
+        function getEffectiveWatt(appliance, customWattId) {
+            const customWatt = document.getElementById(customWattId)?.value;
+            if (customWatt && parseFloat(customWatt) > 0) {
+                return parseFloat(customWatt);
+            }
+            return defaultWatts[appliance];
+        }
+
+        // Load Calculator
+        function calculateLoad() {
+            const bulbs = parseInt(document.getElementById('bulbs').value) || 0;
+            const tubeLights = parseInt(document.getElementById('tubeLights').value) || 0;
+            const fans = parseInt(document.getElementById('fans').value) || 0;
+            const socket5a = parseInt(document.getElementById('socket5a').value) || 0;
+            const socket16a = parseInt(document.getElementById('socket16a').value) || 0;
+            const ac = parseInt(document.getElementById('ac').value) || 0;
+            const geyser = parseInt(document.getElementById('geyser').value) || 0;
+            const tv = parseInt(document.getElementById('tv').value) || 0;
+            const cooler = parseInt(document.getElementById('cooler').value) || 0;
+            const customLoad = parseFloat(document.getElementById('customLoad').value) || 0;
+
+            // Get effective watts
+            const bulbWatt = getEffectiveWatt('bulbs', 'bulbsWatt');
+            const tubeLightWatt = getEffectiveWatt('tubeLights', 'tubeLightsWatt');
+            const fanWatt = getEffectiveWatt('fans', 'fansWatt');
+            const socket5aWatt = getEffectiveWatt('socket5a', 'socket5aWatt');
+            const socket16aWatt = getEffectiveWatt('socket16a', 'socket16aWatt');
+            const acWatt = getEffectiveWatt('ac', 'acWatt');
+            const geyserWatt = getEffectiveWatt('geyser', 'geyserWatt');
+            const tvWatt = getEffectiveWatt('tv', 'tvWatt');
+            const coolerWatt = getEffectiveWatt('cooler', 'coolerWatt');
+
+            // Calculate individual loads
+            const bulbLoad = bulbs * bulbWatt;
+            const tubeLightLoad = tubeLights * tubeLightWatt;
+            const fanLoad = fans * fanWatt;
+            const socket5aLoad = socket5a * socket5aWatt;
+            const socket16aLoad = socket16a * socket16aWatt;
+            const acLoad = ac * acWatt;
+            const geyserLoad = geyser * geyserWatt;
+            const tvLoad = tv * tvWatt;
+            const coolerLoad = cooler * coolerWatt;
+
+            // Total load
+            const totalLoad = bulbLoad + tubeLightLoad + fanLoad + socket5aLoad + socket16aLoad + 
+                            acLoad + geyserLoad + tvLoad + coolerLoad + customLoad;
+
+            if (totalLoad === 0) {
+                alert('Please enter at least one appliance quantity');
+                return;
+            }
+
+            // Safety margin (25%)
+            const safeLoad = totalLoad * 1.25;
+
+            // Breakdown display
+            let breakdown = '<h4 style="font-weight: 700; margin-bottom: 12px;">Load Breakdown:</h4>';
+            if (bulbLoad > 0) breakdown += `<div class="breakdown-item">LED Bulbs: ${bulbs} × ${bulbWatt}W = ${bulbLoad}W</div>`;
+            if (tubeLightLoad > 0) breakdown += `<div class="breakdown-item">Tube Lights: ${tubeLights} × ${tubeLightWatt}W = ${tubeLightLoad}W</div>`;
+            if (fanLoad > 0) breakdown += `<div class="breakdown-item">Fans: ${fans} × ${fanWatt}W = ${fanLoad}W</div>`;
+            if (socket5aLoad > 0) breakdown += `<div class="breakdown-item">5A Sockets: ${socket5a} × ${socket5aWatt}W = ${socket5aLoad}W</div>`;
+            if (socket16aLoad > 0) breakdown += `<div class="breakdown-item">16A Sockets: ${socket16a} × ${socket16aWatt}W = ${socket16aLoad}W</div>`;
+            if (acLoad > 0) breakdown += `<div class="breakdown-item">Air Conditioners: ${ac} × ${acWatt}W = ${acLoad}W</div>`;
+            if (geyserLoad > 0) breakdown += `<div class="breakdown-item">Geysers: ${geyser} × ${geyserWatt}W = ${geyserLoad}W</div>`;
+            if (tvLoad > 0) breakdown += `<div class="breakdown-item">TVs: ${tv} × ${tvWatt}W = ${tvLoad}W</div>`;
+            if (coolerLoad > 0) breakdown += `<div class="breakdown-item">Coolers: ${cooler} × ${coolerWatt}W = ${coolerLoad}W</div>`;
+            if (customLoad > 0) breakdown += `<div class="breakdown-item">Custom Load: ${customLoad}W</div>`;
+
+            document.getElementById('loadBreakdown').innerHTML = breakdown;
+            document.getElementById('loadOutput').innerHTML = `
+                <div style="font-size: 24px;">📊 Total Load: <strong>${totalLoad} W</strong></div>
+                <div style="font-size: 20px; margin-top: 10px;">🛡️ With Safety Margin (25%): <strong>${safeLoad.toFixed(0)} W</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">⚡ Recommended Load: <strong>${Math.ceil(safeLoad / 100) * 100} W</strong></div>
+            `;
+            document.getElementById('loadResult').style.display = 'block';
+            document.getElementById('loadResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function resetLoadCalculator() {
+            const inputs = ['bulbs', 'tubeLights', 'fans', 'socket5a', 'socket16a', 'ac', 'geyser', 'tv', 'cooler', 'customLoad',
+                           'bulbsWatt', 'tubeLightsWatt', 'fansWatt', 'socket5aWatt', 'socket16aWatt', 'acWatt', 'geyserWatt', 'tvWatt', 'coolerWatt'];
+            inputs.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.value = '';
+            });
+            document.getElementById('loadResult').style.display = 'none';
+        }
+
+        // Current Calculator
+        function calculateCurrent() {
+            const load = parseFloat(document.getElementById('currentLoad').value);
+            const voltage = parseFloat(document.getElementById('voltage').value) || 230;
+
+            if (!load || load <= 0) {
+                alert('Please enter a valid load value');
+                return;
+            }
+
+            const current = load / voltage;
+            const safeCurrent = current * 1.25;
+
+            document.getElementById('currentOutput').innerHTML = `
+                <div style="font-size: 24px;">⚡ Current: <strong>${current.toFixed(2)} A</strong></div>
+                <div style="font-size: 20px; margin-top: 10px;">🛡️ Safe Current (25% margin): <strong>${safeCurrent.toFixed(2)} A</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">📊 Voltage: <strong>${voltage} V</strong></div>
+            `;
+            document.getElementById('currentResult').style.display = 'block';
+            document.getElementById('currentResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Wire Size Calculator
+        function calculateWireSize() {
+            const current = parseFloat(document.getElementById('wireCurrent').value);
+
+            if (!current || current <= 0) {
+                alert('Please enter a valid current value');
+                return;
+            }
+
+            const wireChart = [
+                { size: '1.0 sq mm', maxCurrent: 8, use: 'Small lights only' },
+                { size: '1.5 sq mm', maxCurrent: 14, use: 'Lighting & fan circuits' },
+                { size: '2.5 sq mm', maxCurrent: 20, use: '5A & 16A socket circuits' },
+                { size: '4.0 sq mm', maxCurrent: 28, use: 'AC, Geyser, Heavy appliances' },
+                { size: '6.0 sq mm', maxCurrent: 36, use: 'Main distribution board' },
+                { size: '10 sq mm', maxCurrent: 50, use: 'Heavy load main supply' }
+            ];
+
+            let selectedWire = null;
+            for (let wire of wireChart) {
+                if (current <= wire.maxCurrent) {
+                    selectedWire = wire;
+                    break;
+                }
+            }
+
+            if (!selectedWire) {
+                document.getElementById('wireOutput').innerHTML = `
+                    <div style="font-size: 22px; color: white;">❌ Current too high!</div>
+                    <div style="font-size: 18px; margin-top: 10px; color: white;">Current: ${current.toFixed(2)} A exceeds standard wire capacity.</div>
+                    <div style="font-size: 16px; margin-top: 10px; color: white;">Consider using multiple circuits or consult an electrician for specialized wiring.</div>
+                `;
+                document.getElementById('wireResult').className = 'error-box';
+            } else {
+                document.getElementById('wireOutput').innerHTML = `
+                    <div style="font-size: 24px;">✅ Recommended Wire Size: <strong>${selectedWire.size}</strong></div>
+                    <div style="font-size: 20px; margin-top: 10px;">📊 Your Current: <strong>${current.toFixed(2)} A</strong></div>
+                    <div style="font-size: 18px; margin-top: 10px;">⚡ Max Capacity: <strong>${selectedWire.maxCurrent} A</strong></div>
+                    <div style="font-size: 16px; margin-top: 10px;">🔧 Typical Use: <strong>${selectedWire.use}</strong></div>
+                `;
+                document.getElementById('wireResult').className = 'result-box';
+            }
+            document.getElementById('wireResult').style.display = 'block';
+            document.getElementById('wireResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // MCB Calculator
+        function updateMCBCurrent() {
+            const loadType = document.getElementById('mcbLoadType').value;
+            const currentInput = document.getElementById('mcbCurrent');
+
+            const typicalCurrents = {
+                'light': 6,
+                '5a': 10,
+                '16a': 16,
+                'ac': 20,
+                'geyser': 20,
+                'main': 40
+            };
+
+            if (loadType && loadType !== 'custom') {
+                currentInput.value = typicalCurrents[loadType] || '';
+            } else {
+                currentInput.value = '';
+            }
+        }
+
+        function calculateMCB() {
+            const current = parseFloat(document.getElementById('mcbCurrent').value);
+            const loadType = document.getElementById('mcbLoadType').value;
+
+            if (!current || current <= 0) {
+                alert('Please enter a valid current value');
+                return;
+            }
+
+            // Standard MCB ratings
+            const mcbRatings = [6, 10, 16, 20, 25, 32, 40, 50, 63];
+            let recommendedMCB = mcbRatings.find(rating => rating >= current);
+
+            if (!recommendedMCB) {
+                recommendedMCB = 63;
+            }
+
+            // Determine pole type and breaker type
+            let poleType = 'SP (Single Pole)';
+            let breakerType = 'Type B';
+            let note = '';
+
+            if (loadType === 'main') {
+                poleType = 'DP (Double Pole) - Recommended for main isolation';
+            }
+
+            if (loadType === 'ac' || loadType === 'geyser') {
+                breakerType = 'Type C (for motor/heating loads)';
+                note = 'Type C handles inrush current from motors and heating elements.';
+            } else {
+                note = 'Type B is suitable for resistive loads (lights, sockets).';
+            }
+
+            document.getElementById('mcbOutput').innerHTML = `
+                <div style="font-size: 24px;">✅ Recommended MCB: <strong>${recommendedMCB} A</strong></div>
+                <div style="font-size: 20px; margin-top: 10px;">📊 Your Current: <strong>${current.toFixed(2)} A</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">🔌 Pole Type: <strong>${poleType}</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">⚡ Breaker Type: <strong>${breakerType}</strong></div>
+                <div style="font-size: 16px; margin-top: 10px; opacity: 0.9;">${note}</div>
+            `;
+            document.getElementById('mcbResult').style.display = 'block';
+            document.getElementById('mcbResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // RCCB Calculator
+        function calculateRCCB() {
+            const mainMCB = parseFloat(document.getElementById('rccbMainMCB').value);
+
+            if (!mainMCB || mainMCB <= 0) {
+                alert('Please enter a valid MCB rating');
+                return;
+            }
+
+            let recommendedRCCB = 40;
+            if (mainMCB > 40) {
+                recommendedRCCB = 63;
+            }
+
+            document.getElementById('rccbOutput').innerHTML = `
+                <div style="font-size: 24px;">✅ Recommended RCCB: <strong>${recommendedRCCB} A / 30 mA</strong></div>
+                <div style="font-size: 20px; margin-top: 10px;">📊 Main MCB: <strong>${mainMCB} A</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">⚡ Leakage Current: <strong>30 mA (Standard)</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">🔌 Pole Configuration: <strong>2-Pole (DP) or 4-Pole (TP+N)</strong></div>
+                <div style="font-size: 16px; margin-top: 10px;">⏱️ Trip Time: <strong>≤ 30 milliseconds</strong></div>
+                <div style="font-size: 16px; margin-top: 10px; opacity: 0.9;">🛡️ RCCB rating must be equal to or greater than Main MCB rating.</div>
+            `;
+            document.getElementById('rccbResult').style.display = 'block';
+            document.getElementById('rccbResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Inverter Calculator
+        function calculateInverter() {
+            const bulbs = parseInt(document.getElementById('invBulbs').value) || 0;
+            const tubeLights = parseInt(document.getElementById('invTubeLights').value) || 0;
+            const fans = parseInt(document.getElementById('invFans').value) || 0;
+            const tv = parseInt(document.getElementById('invTV').value) || 0;
+            const laptop = parseInt(document.getElementById('invLaptop').value) || 0;
+            const cooler = parseInt(document.getElementById('invCooler').value) || 0;
+            const custom = parseFloat(document.getElementById('invCustom').value) || 0;
+            const backupTime = parseFloat(document.getElementById('backupTime').value) || 3;
+            const batteryVoltage = parseFloat(document.getElementById('batteryVoltage').value) || 24;
+
+            // Calculate loads
+            const bulbLoad = bulbs * 10;
+            const tubeLightLoad = tubeLights * 40;
+            const fanLoad = fans * 80;
+            const tvLoad = tv * 150;
+            const laptopLoad = laptop * 65;
+            const coolerLoad = cooler * 200;
+
+            const totalLoad = bulbLoad + tubeLightLoad + fanLoad + tvLoad + laptopLoad + coolerLoad + custom;
+
+            if (totalLoad <= 0) {
+                alert('Please select at least one appliance');
+                return;
+            }
+
+            // Inverter VA calculation
+            const powerFactor = 0.8;
+            const inverterVA = (totalLoad * 1.25) / powerFactor;
+
+            // Standard inverter sizes - ALWAYS ROUND UP
+            const standardVA = [600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 3500, 4000, 5000];
+            const recommendedVA = standardVA.find(va => va >= inverterVA) || Math.ceil(inverterVA / 500) * 500;
+
+            // Battery Ah calculation
+            const efficiency = 0.8;
+            const batteryAh = (totalLoad * backupTime) / (batteryVoltage * efficiency);
+
+            // Standard battery Ah - ALWAYS ROUND UP
+            const standardAh = [100, 120, 150, 180, 200, 220, 250];
+            const recommendedAh = standardAh.find(ah => ah >= batteryAh) || Math.ceil(batteryAh / 20) * 20;
+
+            // Number of batteries
+            const numBatteries = batteryVoltage / 12;
+
+            // Breakdown
+            let breakdown = '<h4 style="font-weight: 700; margin-bottom: 12px;">Appliance Breakdown:</h4>';
+            if (bulbLoad > 0) breakdown += `<div class="breakdown-item">LED Bulbs: ${bulbs} × 10W = ${bulbLoad}W</div>`;
+            if (tubeLightLoad > 0) breakdown += `<div class="breakdown-item">Tube Lights: ${tubeLights} × 40W = ${tubeLightLoad}W</div>`;
+            if (fanLoad > 0) breakdown += `<div class="breakdown-item">Fans: ${fans} × 80W = ${fanLoad}W</div>`;
+            if (tvLoad > 0) breakdown += `<div class="breakdown-item">TV: ${tv} × 150W = ${tvLoad}W</div>`;
+            if (laptopLoad > 0) breakdown += `<div class="breakdown-item">Laptop: ${laptop} × 65W = ${laptopLoad}W</div>`;
+            if (coolerLoad > 0) breakdown += `<div class="breakdown-item">Cooler: ${cooler} × 200W = ${coolerLoad}W</div>`;
+            if (custom > 0) breakdown += `<div class="breakdown-item">Other Devices: ${custom}W</div>`;
+
+            document.getElementById('inverterBreakdown').innerHTML = breakdown;
+            document.getElementById('inverterOutput').innerHTML = `
+                <div style="font-size: 24px;">⚡ Total Load: <strong>${totalLoad} W</strong></div>
+                <div style="font-size: 22px; margin-top: 10px;">🔋 Recommended Inverter: <strong>${recommendedVA} VA</strong></div>
+                <div style="font-size: 20px; margin-top: 10px;">🔋 Recommended Battery: <strong>${recommendedAh} Ah (${batteryVoltage}V)</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">🔌 Battery Configuration: <strong>${numBatteries === 1 ? '1 × 12V battery' : numBatteries + ' × 12V batteries in series'}</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">⏱️ Expected Backup: <strong>~${backupTime} hours</strong></div>
+                <div style="font-size: 16px; margin-top: 10px;">🌊 Inverter Type: <strong>Pure Sine Wave (Recommended)</strong></div>
+                <div style="font-size: 14px; margin-top: 10px; opacity: 0.9;">
+                    📋 Calculated VA: ${inverterVA.toFixed(0)} VA (Rounded up to: ${recommendedVA} VA)<br>
+                    📋 Calculated Ah: ${batteryAh.toFixed(0)} Ah (Rounded up to: ${recommendedAh} Ah)
+                </div>
+            `;
+            document.getElementById('inverterResult').style.display = 'block';
+            document.getElementById('inverterResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Backup Time Calculator
+        function calculateBackupTime() {
+            const batteryAh = parseFloat(document.getElementById('backupBatteryAh').value);
+            const batteryVoltage = parseFloat(document.getElementById('backupBatteryVoltage').value) || 24;
+            const load = parseFloat(document.getElementById('backupLoad').value);
+
+            if (!batteryAh || !load || batteryAh <= 0 || load <= 0) {
+                alert('Please enter valid battery and load values');
+                return;
+            }
+
+            const efficiency = 0.8;
+            const backupTime = (batteryAh * batteryVoltage * efficiency) / load;
+            const hours = Math.floor(backupTime);
+            const minutes = Math.round((backupTime - hours) * 60);
+
+            document.getElementById('backupOutput').innerHTML = `
+                <div style="font-size: 24px;">⏱️ Backup Time: <strong>${hours} hours ${minutes} minutes</strong></div>
+                <div style="font-size: 20px; margin-top: 10px;">🔋 Battery: <strong>${batteryAh} Ah @ ${batteryVoltage}V</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">⚡ Load: <strong>${load} W</strong></div>
+                <div style="font-size: 16px; margin-top: 10px;">📊 Battery Energy: <strong>${(batteryAh * batteryVoltage * efficiency).toFixed(0)} Wh</strong></div>
+            `;
+            document.getElementById('backupResult').style.display = 'block';
+            document.getElementById('backupResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Wire Length Estimator
+        function toggleWireLengthInputs() {
+            const method = document.getElementById('wireLengthMethod').value;
+            document.getElementById('pointsInput').style.display = method === 'points' ? 'block' : 'none';
+            document.getElementById('roomsInput').style.display = method === 'rooms' ? 'block' : 'none';
+            document.getElementById('manualInput').style.display = method === 'manual' ? 'block' : 'none';
+        }
+
+        function calculateWireLength() {
+            const method = document.getElementById('wireLengthMethod').value;
+            const margin = parseFloat(document.getElementById('wireLengthMargin').value) / 100 || 0.15;
+            let baseLength = 0;
+            let description = '';
+
+            if (method === 'points') {
+                const points = parseInt(document.getElementById('electricalPoints').value) || 0;
+                if (points === 0) {
+                    alert('Please enter number of electrical points');
+                    return;
+                }
+                baseLength = points * 11;
+                description = `Based on ${points} electrical points @ ~11m per point`;
+            } else if (method === 'rooms') {
+                const rooms = parseInt(document.getElementById('rooms').value) || 0;
+                if (rooms === 0) {
+                    alert('Please enter number of rooms');
+                    return;
+                }
+                baseLength = rooms * 70;
+                description = `Based on ${rooms} rooms @ ~70m per room`;
+            } else if (method === 'manual') {
+                baseLength = parseFloat(document.getElementById('manualWireLength').value) || 0;
+                if (baseLength === 0) {
+                    alert('Please enter wire length');
+                    return;
+                }
+                description = 'Manual input';
+            }
+
+            const totalLength = baseLength * (1 + margin);
+            const extraLength = totalLength - baseLength;
+
+            document.getElementById('wireLengthOutput').innerHTML = `
+                <div style="font-size: 24px;">📏 Total Wire Required: <strong>${Math.ceil(totalLength)} meters</strong></div>
+                <div style="font-size: 20px; margin-top: 10px;">📊 Base Length: <strong>${baseLength} m</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">➕ Safety Margin (${(margin * 100).toFixed(0)}%): <strong>${Math.ceil(extraLength)} m</strong></div>
+                <div style="font-size: 16px; margin-top: 10px; opacity: 0.9;">${description}</div>
+                <div style="font-size: 16px; margin-top: 10px;">💡 Tip: Consider buying in 90m or 180m rolls for cost efficiency</div>
+            `;
+            document.getElementById('wireLengthResult').style.display = 'block';
+            document.getElementById('wireLengthResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Conduit & Casing-Capping Calculator
+        function updatePipeSize() {
+            const circuitType = document.getElementById('circuitType').value;
+            const pipeSizeInput = document.getElementById('pipeSize');
+
+            const pipeSizes = {
+                'light': 20,
+                'socket': 25,
+                'main': 32,
+                'auto': 20
+            };
+
+            if (circuitType !== 'custom') {
+                pipeSizeInput.value = pipeSizes[circuitType] || 20;
+                pipeSizeInput.disabled = true;
+            } else {
+                pipeSizeInput.disabled = false;
+            }
+        }
+
+        function calculateConduit() {
+            const rooms = parseInt(document.getElementById('conduitRooms').value) || 0;
+            const points = parseInt(document.getElementById('conduitPoints').value) || 0;
+            const wiringType = document.getElementById('wiringType').value;
+            const pipeSize = parseInt(document.getElementById('pipeSize').value) || 20;
+            const wastage = parseFloat(document.getElementById('conduitWastage').value) / 100 || 0.1;
+
+            if (rooms === 0 && points === 0) {
+                alert('Please enter number of rooms or electrical points');
+                return;
+            }
+
+            // Calculate pipe length
+            let basePipeLength = 0;
+            let calculationMethod = '';
+
+            if (points > 0) {
+                basePipeLength = points * 3; // 3 meters per point
+                calculationMethod = `${points} points × 3m per point`;
+            } else if (rooms > 0) {
+                basePipeLength = rooms * 20; // 20 meters per room average
+                calculationMethod = `${rooms} rooms × 20m per room`;
+            }
+
+            const totalPipeLength = Math.ceil(basePipeLength * (1 + wastage));
+            const wastageLength = totalPipeLength - basePipeLength;
+
+            // Material calculations
+            const bends = Math.ceil(points * 1); // 1 bend per point
+            const junctionBoxes = Math.ceil(points * 0.6); // 0.6 junction box per point
+            const saddles = Math.ceil(totalPipeLength / 0.8); // 1 saddle per 0.8m
+            const couplers = Math.ceil(totalPipeLength / 3); // 1 coupler per 3m pipe
+
+            // Pipe overload warning
+            let overloadWarning = '';
+            const wiresPerPoint = 3; // Average 3 wires per point
+            const totalWires = points * wiresPerPoint;
+            const maxWiresForPipe = {
+                16: 3,
+                20: 5,
+                25: 7,
+                32: 10
+            };
+            const maxWires = maxWiresForPipe[pipeSize] || 5;
+            
+            if (totalWires > maxWires * (points / 2)) {
+                overloadWarning = `<div class="error-box" style="margin-top: 20px;">⚠️ <strong>Warning:</strong> Pipe may be overloaded! Consider using ${pipeSize + 5}mm or splitting into multiple conduits.</div>`;
+            }
+
+            // Output
+            const wiringTypeName = wiringType === 'conduit' ? 'PVC Conduit (Concealed)' : 'Casing-Capping (Open)';
+            
+            document.getElementById('conduitOutput').innerHTML = `
+                <div style="font-size: 24px;">🏗️ Total ${wiringTypeName}: <strong>${totalPipeLength} meters</strong></div>
+                <div style="font-size: 20px; margin-top: 10px;">📐 Pipe Size: <strong>${pipeSize} mm</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">📊 Base Length: <strong>${basePipeLength} m</strong></div>
+                <div style="font-size: 18px; margin-top: 10px;">➕ Wastage (${(wastage * 100).toFixed(0)}%): <strong>${wastageLength} m</strong></div>
+                <div style="font-size: 16px; margin-top: 10px; opacity: 0.9;">Calculation: ${calculationMethod}</div>
+            `;
+
+            // Material list
+            document.getElementById('materialList').innerHTML = `
+                <table style="width: 100%; margin-top: 12px;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 10px; background: rgba(16, 185, 129, 0.15); color: #065f46;">Item</th>
+                            <th style="text-align: right; padding: 10px; background: rgba(16, 185, 129, 0.15); color: #065f46;">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody style="color: #065f46;">
+                        <tr style="background: rgba(255, 255, 255, 0.5);">
+                            <td style="padding: 10px; font-weight: 600;">${wiringTypeName} (${pipeSize}mm)</td>
+                            <td style="text-align: right; padding: 10px; font-weight: 700;">${totalPipeLength} m</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Bends (90°)</td>
+                            <td style="text-align: right; padding: 10px; font-weight: 600;">${bends} pcs</td>
+                        </tr>
+                        <tr style="background: rgba(255, 255, 255, 0.5);">
+                            <td style="padding: 10px;">Junction Boxes</td>
+                            <td style="text-align: right; padding: 10px; font-weight: 600;">${junctionBoxes} pcs</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">${wiringType === 'conduit' ? 'Saddles/Clamps' : 'Screws/Fasteners'}</td>
+                            <td style="text-align: right; padding: 10px; font-weight: 600;">${saddles} pcs</td>
+                        </tr>
+                        <tr style="background: rgba(255, 255, 255, 0.5);">
+                            <td style="padding: 10px;">Couplers/Connectors</td>
+                            <td style="text-align: right; padding: 10px; font-weight: 600;">${couplers} pcs</td>
+                        </tr>
+                        ${wiringType === 'conduit' ? `
+                        <tr>
+                            <td style="padding: 10px;">PVC Adhesive</td>
+                            <td style="text-align: right; padding: 10px; font-weight: 600;">1-2 bottles</td>
+                        </tr>` : ''}
+                    </tbody>
+                </table>
+            `;
+
+            document.getElementById('conduitResult').innerHTML += overloadWarning;
+            document.getElementById('conduitResult').style.display = 'block';
+            document.getElementById('conduitResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
