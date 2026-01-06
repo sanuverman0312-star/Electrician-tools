@@ -95,4 +95,46 @@ All tools work **offline in the browser** and require **no login**.
 ---
 
 ## 📂 Project Structure
+--electrical-tools/
+│
+├── index.html
+└── README.md
 
+---
+
+## ⚠️ Safety Disclaimer
+
+> All calculations are for guidance and estimation purposes only.  
+> Final installation must be carried out by a **certified electrician** following local electrical codes and safety standards.
+
+---
+
+## 🎯 Who Can Use This?
+
+- Professional Electricians
+- Electrical Technicians
+- ITI / Polytechnic Students
+- Homeowners (basic planning)
+- Electrical Trainers
+
+---
+
+## 🚀 Future Enhancements (Planned)
+
+- 3-Phase load calculator
+- Solar inverter sizing
+- PDF export of calculations
+- PWA (installable mobile app)
+- Hindi / English language toggle
+
+---
+
+## 👨‍🔧 Author
+
+**Shashank**  
+Professional Electrician  
+🇮🇳 India  
+
+---
+
+⭐ If you find this project useful, please **star the repository** and share it with fellow electricians!
